@@ -33,13 +33,12 @@ def get_secret(setting, secrets=secrets):
         error_msg = "Set the {} environment variable".format(setting)
         raise ImproperlyConfigured(error_msg)
 
-
 SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '192.168.0.3']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '192.168.0.3', '49.50.172.16']
 
 # Application definition
 
@@ -119,7 +118,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hyunsik_kim_lab',
         'USER': 'root',
-        'PASSWORD': 'evoker.kz',
+        'PASSWORD': get_secret("DB_PASSWORD"),
         'HOST': 'localhost',
         'PORT': '3306',
     }
