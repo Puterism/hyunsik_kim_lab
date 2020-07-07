@@ -1,0 +1,90 @@
+@import "../fontawesome/scss/fontawesome.scss";
+@import "../fontawesome/scss/solid.scss";
+
+.article-view {
+  article {
+    position: relative;
+    margin: 80px 0;
+    animation: articlefadeIn .5s ease;
+
+    p {
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 27px;
+
+      img {
+        max-width: 100%;
+        height: auto !important;
+      }
+    }
+
+    &::before, &::after {
+      width: 68px;
+      height: 10px;
+      background-color: #ff3939;
+      content: '';
+      display: block;
+    }
+
+    &::before {
+      margin-bottom: 40px;
+      animation: articleEffectTop .5s ease;
+    }
+
+    &::after {
+      margin-top: 40px;
+      animation: articleEffectBottom .5s ease;
+    }
+
+    .title {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 17px;
+    }
+
+    .date {
+      &:before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-calendar);
+        margin-right: 5px;
+      }
+
+      color: gray;
+      font-family: inherit;
+      font-weight: normal;
+      font-size: 1em;
+      margin-bottom: 3em;
+    }
+  }
+  .back, .back:visited {
+    color: gray;
+  }
+}
+
+@keyframes articleEffectTop {
+  from {
+    margin-bottom: 20px;
+  }
+  to {
+    margin-bottom: 40px;
+  }
+}
+
+@keyframes articleEffectBottom {
+  from {
+    margin-top: 20px;
+  }
+  to {
+    margin-top: 40px;
+  }
+}
+
+@keyframes articlefadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

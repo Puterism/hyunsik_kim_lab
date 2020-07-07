@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+{% block title %}
+<title>연구실 멤버 추가 - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/members.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+
+{% block content %}
+    <section class="header-middle">
+        <h2>연구실 멤버 소개</h2>
+        <p>{{ site.page_subtitle }}</p>
+    </section>
+    <main>
+        <section class="members page">
+            {% if user.is_authenticated %}
+                <h2 class="page-header">연구실 멤버 추가</h2>
+                <form method="post" action="{% url 'members_add' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label id="photo-preview" for="id_photo">
+                        <div class="profile-image"></div>
+                    </label>
+                    {% for item in form %}
+                        <div class="form-input{% if item.errors %} error{% endif %}">
+                            {{ item }}
+                            {% if item.errors %}
+                                {% for error in item.errors %}
+                                    <span class="error-message">{{ error }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <input type="submit" value="추가하기" />
+                </form>
+            {% else %}
+                <p>관리자 전용 페이지입니다</p>
+            {% endif %}
+        </section>
+    </main>
+{% endblock %}
+
+{% block js %}
+    <script>
+        const photo = '#id_photo';
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const profileImagePreview = document.querySelector('#photo-preview .profile-image');
+                    profileImagePreview.style.backgroundImage = `url(${e.target.result})`;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        const imageUploadInput = document.querySelector(photo);
+
+        imageUploadInput.addEventListener('change', function () {
+            readURL(this);
+        });
+    </script>
+{% endblock %}

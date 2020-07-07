@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>Publications - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/publications.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <section class="header-middle">
+        <h2>Publications</h2>
+        <p>{{ site.page_subtitle }}</p>
+    </section>
+    <main>
+        <section class="publications page">
+            {% if user.is_authenticated %}
+                <div class="admin-menu">
+                    <a href="{% url 'publications_add' %}">
+                        <button>추가</button>
+                    </a>
+                    <a href="{% url 'publications_edit_order' %}">
+                        <button>순서 변경</button>
+                    </a>
+                </div>
+            {% endif %}
+            {% if publications %}
+                <ol class="list" reversed>
+                     {% for item in publications %}
+                        <li class="item">
+{#                            <h3 class="number">{{ item.order }}</h3>#}
+                            <div class="description">{{ item.content | safe | linebreaksbr }}</div>
+                            {% if user.is_authenticated %}
+                                <div class="control">
+                                    <a href="{% url 'publications_edit' item.id %}" class="edit"><i class="fas fa-pen"></i>수정</a>
+                                </div>
+                            {% endif %}
+                        </li>
+                     {% endfor %}
+                </ol>
+            {% else %}
+                <span>입력된 정보가 없습니다.</span>
+            {% endif %}
+        </section>
+    </main>
+{% endblock %}
+
+{% block libjs %}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+{% endblock %}

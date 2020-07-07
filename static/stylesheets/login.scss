@@ -1,0 +1,17 @@
+@import 'mixins';
+
+.login {
+  margin-top: 80px;
+
+  h2 {
+    font-weight: bold;
+  }
+
+  .form-input {
+    margin: 1em 0;
+
+    input[type="text"], input[type="password"] {
+      @include textbox;
+    }
+  }
+}

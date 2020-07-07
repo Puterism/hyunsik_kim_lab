@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>Research - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/research.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <section class="header-middle">
+        <h2>Research</h2>
+        <p>{{ site.page_subtitle }}</p>
+    </section>
+    <main class="timeline-include">
+        <section class="research page">
+            {% if user.is_authenticated %}
+                <div class="admin-menu">
+                    <a href="{% url 'research_add' %}">
+                        <button>추가</button>
+                    </a>
+                </div>
+            {% endif %}
+            <ul class="timeline">
+                {% if research %}
+                    {% for item in research %}
+                        <li>
+                            <div class="year">
+                            {% if item.year %}
+                                {% ifchanged %}
+                                    {{ item.year }}
+                                {% endifchanged %}
+                            {% endif %}
+                            </div>
+                            <div class="content" data-id="{{ item.order }}">
+                                <div class="info">
+                                    <h3 class="title">
+                                        {% if item.title %}
+                                            {{ item.title }}
+                                        {% endif %}
+                                    </h3>
+                                    <p class="author">
+                                        {% if item.author %}
+                                            {{ item.author }}
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <div class="description">
+                                    {% if item.content %}
+                                        {{ item.content | safe }}
+                                    {% endif %}
+                                </div>
+
+                                {% if user.is_authenticated %}
+                                    <div class="control">
+                                        <a href="{% url 'research_edit' item.order %}" class="edit"><i class="fas fa-pen"></i>수정</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <p>입력된 내용이 없습니다.</p>
+                {% endif %}
+            </ul>
+        </section>
+    </main>
+{% endblock %}
+
+{% block js %}
+<script>
+const isDOM = el => el instanceof Element;
+
+const timeline = document.querySelector('.timeline');
+timeline.addEventListener('click', function (e) {
+    if (e.target.className === "content") {
+        const li = e.target.parentNode;
+        if (li.classList.contains('selected')) {
+            li.classList.remove('selected');
+        } else {
+            li.classList.add('selected');
+        }
+    }
+})
+</script>
+{% endblock %}

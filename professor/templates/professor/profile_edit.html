@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>교수님 소개 프로필 수정 - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/professor.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <section class="header-middle">
+        <h2>교수님 소개</h2>
+        <p>{{ site.page_subtitle }}</p>
+    </section>
+    <main>
+        <article class="professor page">
+            {% if user.is_authenticated %}
+                <h2 class="page-header">
+                    교수님 소개 프로필 수정
+                </h2>
+                <div class="profile-container">
+                    <section class="profile" aria-labelledby="profile">
+                        <form method="post" action="{% url 'professor_profile_edit' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <label id="photo-preview" for="id_photo">
+                                {% if profile.photo %}
+                                    <div class="image" style="background-image: url({{ profile.photo.url }})"></div>
+                                {% else %}
+                                    <div class="image"></div>
+                                {% endif %}
+                            </label>
+                            {{ form.photo }}
+                            <div class="content">
+                                <h2 class="name">
+                                    {{ form.name }}
+                                </h2>
+                                <p class="info position">
+                                    {{ form.position }}
+                                </p>
+                                <p class="info location">
+                                    {{ form.location }}
+                                </p>
+                                <p class="info email">
+                                    {{ form.email }}
+                                </p>
+                                {% for item in form %}
+                                    {% if item.errors %}
+                                        {% for error in item.errors %}
+                                            <p class="error-message">{{ error }}</p>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <input type="submit" value="수정하기" />
+                        </form>
+                    </section>
+                </div>
+            {% else %}
+                <p>관리자 전용 페이지입니다.</p>
+            {% endif %}
+
+        </article>
+    </main>
+{% endblock %}
+
+{% block js %}
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const profileImagePreview = document.querySelector('#photo-preview .image');
+                    profileImagePreview.style.backgroundImage = `url(${e.target.result})`;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        const imageUploadInput = document.querySelector('#id_photo');
+
+        imageUploadInput.addEventListener('change', function () {
+            readURL(this);
+        });
+    </script>
+{% endblock %}

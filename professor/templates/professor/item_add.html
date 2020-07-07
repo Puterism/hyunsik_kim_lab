@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>교수님 소개 항목 추가 - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/professor.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <section class="header-middle">
+        <h2>교수님 소개</h2>
+        <p>{{ site.page_subtitle }}</p>
+    </section>
+    <main>
+        <article class="professor page">
+            {% if user.is_authenticated %}
+                <h2 class="page-header">
+                    교수님 소개 항목 추가
+                </h2>
+                <form method="post" action="{% url 'professor_item_add' %}" enctype="multipart/form-data">
+                    <section class="careers editor">
+                        <section class="menu">
+                            <h3 class="list-header">
+                                {{ form.menu }}
+                            </h3>
+                            <ul class="list">
+                                {% csrf_token %}
+                                <li class="item">
+                                    <div class="year">{{ form.year }}</div>
+                                    <div class="content">
+                                        <h4 class="title">{{ form.title }}</h4>
+                                        <h5 class="subtitle">{{ form.subtitle }}</h5>
+                                        <div class="description">
+                                            {{ form.description }}
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            {% for item in form %}
+                                {% if item.errors %}
+                                    {% for error in item.errors %}
+                                        <p class="error-message">{{ error }}</p>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                            <input type="submit" value="추가하기" />
+                        </section>
+                    </section>
+                </form>
+            {% else %}
+                <p>관리자 전용 페이지입니다.</p>
+            {% endif %}
+        </article>
+    </main>
+{% endblock %}
+

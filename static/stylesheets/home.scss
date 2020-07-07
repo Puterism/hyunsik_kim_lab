@@ -1,0 +1,181 @@
+@import "../fontawesome/scss/fontawesome.scss";
+@import "../fontawesome/scss/solid.scss";
+@import "mixins";
+
+.home {
+  padding: 3em 0;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .part {
+    animation: fadeIn 1s;
+    width: 100%;
+    padding: 3em 0;
+
+    .menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h2 {
+        font-weight: bold;
+        font-size: 1.7em;
+
+        &::before {
+          content: '';
+          width: 30px;
+          height: 5px;
+          background-color: #ff3939;
+          display: block;
+        }
+      }
+
+    }
+
+    .list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  }
+
+  .introduce {
+    p {
+      margin: 0;
+      line-height: 2em;
+      font-weight: 300;
+      font-size: 18px;
+    }
+    img {
+      max-width: 100%;
+      height: auto !important;
+    }
+  }
+
+  .notice {
+    .list {
+      .item {
+        .title, .date {
+          margin: .4em 0;
+        }
+
+        .title {
+          font-size: 2em;
+          font-weight: bold;
+        }
+
+        .date {
+          color: gray;
+
+          &:before {
+            @extend %fa-icon;
+            @extend .fas;
+            content: fa-content($fa-var-calendar);
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .members {
+    .list {
+      .item {
+        width: 80px;
+        height: 80px;
+        border-radius: 40px;
+        display: inline-block;
+        background-position: center;
+        background-size: cover;
+        margin: 5px;
+        //margin-right: 11px;
+        //margin-bottom: 1em;
+
+      }
+    }
+  }
+
+  form {
+    p {
+      margin: 2em 0;
+    }
+    label {
+      font-size: .8em;
+      display: block;
+    }
+
+    #id_title, #id_subtitle {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid black;
+      padding: 8px 4px;
+      outline: none;
+
+      &:focus {
+        border-bottom: 3px solid black;
+      }
+    }
+
+    #id_title {
+      font-size: 2em;
+    }
+
+    #id_subtitle {
+      font-weight: 300;
+    }
+  }
+}
+
+.site-setting {
+  form {
+    .form-input {
+      margin: 2em 0;
+    }
+
+    label {
+      font-size: .9em;
+      display: block;
+    }
+
+    input[type="text"], input[type="email"] {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid black;
+      padding: 8px 4px;
+      outline: none;
+
+      &:focus {
+        border-bottom: 3px solid black;
+      }
+    }
+
+    .description {
+      margin: 0;
+      font-size: .7em;
+    }
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .members {
+    .list {
+      .item {
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    margin-top: -10px;
+    opacity: 0;
+  }
+  to {
+    margin-top: 0;
+    opacity: 1;
+  }
+}

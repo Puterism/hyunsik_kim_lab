@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>사이트 설정 - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/home.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+
+{% block content %}
+    <section class="header-middle">
+        <h2>사이트 설정</h2>
+        <p>사이트를 전반적으로 설정하는 페이지입니다</p>
+    </section>
+    <main>
+        <section class="site-setting page">
+            {% if user.is_authenticated %}
+                <h2 class="page-header">사이트 설정</h2>
+                <form method="post" action="{% url 'site_setting' %}" enctype="multipart/form-data" class="editor">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    <div class="form-input">
+                        <label for="id_title">
+                            사이트 제목 (공백 포함 최대 15자)
+                        </label>
+                        {{ form.title }}
+                        {{ form.title.error }}
+                        <p class="description">사이트의 제목을 입력합니다. 상단의 메뉴바나 페이지 제목에 뜨는 이름을 여기서 설정합니다.</p>
+                    </div>
+                    <div class="form-input">
+                        <label for="id_page_subtitle">
+                            각 페이지 부제
+                        </label>
+                        {{ form.page_subtitle }}
+                        {{ form.title.error }}
+                        <p class="description">각 페이지의 상단 부제목을 입력합니다.
+                    </div>
+                    <div class="form-input">
+                        <label for="id_address">
+                            연구실 주소
+                        </label>
+                        {{ form.address }}
+                        {{ form.address.error }}
+                        <p class="description">하단의 Contact Us에 띄울 연구실 주소를 입력합니다.</p>
+                    </div>
+                    <div class="form-input">
+                        <label for="id_tel">
+                            연락 가능한 전화번호
+                        </label>
+                        {{ form.tel }}
+                        {{ form.tel.error }}
+                        <p class="description">하단의 Contact Us에 띄울 연락처를 입력합니다.</p>
+                    </div>
+                    <div class="form-input">
+                        <label for="id_email">
+                            연락 가능한 이메일 주소
+                        </label>
+                        {{ form.email }}
+                        {{ form.email.error }}
+                        <p class="description">하단의 Contact Us에 띄울 연락 가능한 이메일 주소를 입력합니다.</p>
+                    </div>
+                    <input type="submit" value="수정하기" />
+                </form>
+            {% else %}
+                <p>관리자 전용 페이지입니다</p>
+            {% endif %}
+        </section>
+    </main>
+{% endblock %}

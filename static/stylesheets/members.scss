@@ -1,0 +1,266 @@
+@import "../fontawesome/scss/fontawesome.scss";
+@import "../fontawesome/scss/solid.scss";
+@import "mixins";
+
+.members {
+  .profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    margin: 0 auto 1em auto;
+    position: relative;
+    text-align: center;
+    background-image: url(/static/images/blank-profile.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .professor {
+    text-align: center;
+    animation: fadeIn 1s ease;
+    margin-bottom: 100px;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .profile {
+      width: 300px;
+      display: inline-block;
+    }
+
+    .profile:hover .profile-image {
+      background-size: 110%;
+    }
+
+    .profile-image {
+      width: 250px;
+      height: 250px;
+      border-radius: 150px;
+      transition: .2s ease;
+      background-size: 100%;
+    }
+
+    .name {
+      font-size: 2em;
+      font-weight: bold;
+      margin-top: 0;
+      margin-bottom: .2em;
+    }
+
+    .email {
+      margin: 0;
+
+      &::before {
+        @extend %fa-icon;
+        @extend .fas;
+
+        content: fa-content($fa-var-envelope);
+        margin-right: .2em;
+      }
+    }
+  }
+
+  .list {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+    box-sizing: border-box;
+
+    .item {
+      width: 200px;
+      display: inline-block;
+      vertical-align: top;
+      //box-sizing: border-box;
+      text-align: center;
+      padding: 2em 1em;
+      animation: fadeIn 1s ease;
+
+      h3, p {
+        margin: 0;
+      }
+
+      h3 {
+        font-size: 1.8em;
+        font-weight: bold;
+        margin-bottom: .2em;
+      }
+
+      p {
+        font-size: .9em;
+        margin-bottom: .1em;
+
+        &::before {
+          display: inline-block;
+          font-size: 1em;
+          text-align: center;
+          box-sizing: border-box;
+          margin-right: .2em;
+        }
+      }
+
+
+      .position {
+        &::before {
+          @extend %fa-icon;
+          @extend .fas;
+
+          content: fa-content($fa-var-graduation-cap);
+        }
+      }
+
+      .email {
+        &::before {
+          @extend %fa-icon;
+          @extend .fas;
+
+          content: fa-content($fa-var-envelope);
+        }
+      }
+
+      .description {
+        color: gray;
+      }
+
+
+
+      &.add {
+        cursor: pointer;
+      }
+
+      &.add .profile-image {
+        background: none;
+        border: 5px solid #dddddd;
+        transition: background-color .1s ease, color .1s ease;
+        padding: 0;
+        width: 200px;
+        height: 200px;
+        box-sizing: border-box;
+
+        &:before {
+          @extend %fa-icon;
+          @extend .fas;
+          content: fa-content($fa-var-plus);
+          position: absolute;
+          display: inline-block;
+          left: 0;
+          right: 0;
+          top: 0;
+          margin: 0 auto;
+          color: #dddddd;
+          line-height: 200px;
+          font-size: 5em;
+
+        }
+
+        &:hover {
+          background-color: #dddddd;
+
+          &:before {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  form {
+    label {
+      display: inline-block;
+      cursor: pointer;
+      box-sizing: border-box;
+
+      &:hover .profile-image::before {
+        content: "이미지 선택";
+        color: white;
+        font-size: 2em;
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        line-height: 200px;
+        border-radius: 100px;
+        background-color: rgba(0, 0, 0, .1);
+      }
+    }
+
+    .image-upload {
+      display: none;
+    }
+
+    .form-input {
+      &.error {
+        input, textarea {
+          border-bottom: 1px solid red;
+        }
+      }
+
+      label {
+        display: none;
+      }
+
+      select {
+        width: 200px;
+      }
+
+      input, textarea {
+        width: 200px;
+        padding: 0;
+        margin: 0;
+        border: none;
+        resize: none;
+        background: none;
+        text-align: center;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+      }
+
+      #id_name {
+        font-size: 1.8em;
+        font-weight: bold;
+        margin-bottom: .2em;
+      }
+
+      #id_position {
+        border: none;
+        border-bottom: 1px solid black;
+        text-align: center;
+      }
+
+      #id_position, #id_email, #id_description {
+        font-size: .9em;
+        margin-bottom: .1em;
+      }
+
+      #id_description {
+        color: gray;
+        margin-bottom: 1em;
+        height: 5em;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .members {
+    .list {
+      .item {
+        width: 100%;
+        padding: 2em 0;
+
+        .content {
+          width: 200px;
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+}

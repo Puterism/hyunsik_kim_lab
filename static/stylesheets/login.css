@@ -1,0 +1,11 @@
+.login { margin-top: 80px; }
+
+.login h2 { font-weight: bold; }
+
+.login .form-input { margin: 1em 0; }
+
+.login .form-input input[type="text"], .login .form-input input[type="password"] { display: block; border: none; border-bottom: 1px solid black; font-size: 1.2em; padding: .5em 0; box-sizing: border-box; transition: border-bottom .1s ease; outline: none; }
+
+.login .form-input input[type="text"]:focus, .login .form-input input[type="password"]:focus { border-bottom: 3px solid black; }
+
+/*# sourceMappingURL=login.css.map */

@@ -1,0 +1,44 @@
+{% load sass_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+
+    {% block title %}
+    <title>{{ site.title }}</title>
+    {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie-edge" />
+    <meta property="og:title" content="{{ site.title }}" />
+    <meta property="og:description" content="{{ site.page_subtitle }}" />
+    <meta property="og:image" content="{% static '/images/microscopes.jpg' %}" />
+    <link rel="shortcut icon" href="{% static '/images/favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static '/images/apple-touch-icon.png' %}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link href="{% static 'stylesheets/normalize.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% sass_src 'fontawesome/scss/fontawesome.scss' %}" rel="stylesheet">
+    <link href="{% sass_src 'stylesheets/base.scss' %}" rel="stylesheet" type="text/css" />
+    <link href="{% sass_src 'stylesheets/header.scss' %}" rel="stylesheet" type="text/css" />
+    <link href="{% sass_src 'stylesheets/footer.scss' %}" rel="stylesheet" type="text/css" />
+    {% block style %}
+    {% endblock %}
+</head>
+<body>
+    {% include 'header.html' %}
+    
+    {% block content %}
+    {% endblock %}
+
+    {% include 'footer.html' %}
+
+    {% block libjs %}
+    {% endblock %}
+
+    <script src="{% static 'scripts/index.js' %}"></script>
+
+    {% block js %}
+    {% endblock %}
+</body>
+</html>

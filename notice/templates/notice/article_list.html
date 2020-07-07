@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+{% block title %}
+<title>공지사항 - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/article_list.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+
+{% block content %}
+    <section class="header-middle">
+        <h2>공지사항</h2>
+        <p>{{ site.page_subtitle }}</p>
+    </section>
+    <main>
+        <section class="notice page">
+            {% if user.is_authenticated %}
+                <div class="admin-menu">
+                    <a href="{% url 'article_write' %}"><button>게시글 쓰기</button></a>
+                </div>
+            {% endif %}
+            {% if articles %}
+                {% for article in articles %}
+                    <a href="{% url 'article_view' pk=article.pk %}">
+                        <article>
+                            <h2 class="title">{{ article.title }}</h2>
+                            <p class="date">{{ article.created_at | date:"yy. m. d." }}</p>
+        {#                    <p class="content">{{ article.content | linebreaksbr }}</p>#}
+                        </article>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p>작성된 게시물이 없습니다.</p>
+            {% endif %}
+
+            <div class="paginator">
+                <a {% if articles.number > 1 %} href="?page=1" {% else %} class="disabled" {% endif %}>
+                    <i class="fas fa-angle-left"></i>
+                </a>
+
+                {% if articles.number == 1 %}
+                    <a class="disabled"></a>
+                    <a class="disabled"></a>
+                {% elif articles.number == 2 %}
+                    <a class="disabled"></a>
+                {% endif %}
+
+                {% for index in paginator_range %}
+                    {% if articles.number == index %}
+                        <a class="selected">{{ index }}</a>
+                    {% else %}
+                        <a href="?page={{ index }}">{{ index }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if articles.number == articles.paginator.num_pages|add:-1 %}
+                    <a class="disabled"></a>
+                {% elif articles.number == articles.paginator.num_pages %}
+                    <a class="disabled"></a>
+                    <a class="disabled"></a>
+                {% endif %}
+
+                <a {% if articles.paginator.num_pages > articles.number %} href="?page={{ articles.paginator.num_pages }}" {% else %} class="disabled" {% endif %}">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </div>
+        </section>
+    </main>
+{% endblock %}

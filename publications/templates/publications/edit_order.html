@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>Publications - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/publications.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <section class="header-middle">
+        <h2>Publications</h2>
+        <p>{{ site.page_subtitle }}</p>
+    </section>
+    <main>
+        <section class="publications page">
+            {% if user.is_authenticated %}
+                {% if publications %}{% csrf_token %}
+                    <div class="admin-menu">
+                        <p class="info-message">드래그해서 원하는 순서로 옮긴 뒤, 저장 버튼을 눌러주세요.</p>
+                        <button id="saveButton">
+                            <span class="text">저장</span>
+                            <span class="loading"></span>
+                        </button>
+                        <a href="{% url 'publications' %}">
+                            <button>
+                                <span>돌아가기</span>
+                            </button>
+                        </a>
+                    </div>
+                    <p class="error-message"></p>
+                    <ol class="list edit-order" id="list" reversed>
+                         {% for item in publications %}
+                            <li class="item" data-field-id="{{ item.id }}">
+{#                                    <h3 class="number">{{ item.order }}</h3>#}
+                                <div class="description">{{ item.content | safe | linebreaksbr }}</div>
+                            </li>
+                         {% endfor %}
+                    </ol>
+                {% else %}
+                    <span>입력된 정보가 없습니다.</span>
+                {% endif %}
+            {% else %}
+                <p>관리자 전용 페이지입니다</p>
+            {% endif %}
+        </section>
+    </main>
+{% endblock %}
+
+{% block libjs %}
+{#<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>#}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+{% endblock %}
+
+{% block js %}
+<script>
+const publicationsEl = document.querySelector('#list');
+const itemsEl = document.querySelectorAll('#list > *');
+let isRequesting = false;
+let data = {};
+
+if (publicationsEl && itemsEl) {
+    const saveButtonEl = document.querySelector('#saveButton');
+    saveButtonEl.onclick = function () {
+        if (!isRequesting) {
+            updatePublicationsOrder();
+            toggleLoadingSpinner();
+        }
+    };
+
+    data = {
+        {% for item in publications %}
+            {{ item.id }}: {
+                order: {{ item.order }},
+            },
+        {% endfor %}
+    }
+
+    const sortable = new Sortable(publicationsEl, {
+        animation: 150,
+        ghostClass: 'ghost',
+        onEnd: function (evt) {
+            let updatedData = {...data};
+            const updatedDOM = Array.from(evt.to.children).reverse();
+
+            for (let i = 0; i < updatedDOM.length; i++) {
+                const id = updatedDOM[i].getAttribute('data-field-id');
+                updatedData[id].order = i + 1;
+            }
+
+            data = updatedData;
+        }
+    });
+}
+
+function updatePublicationsOrder() {
+    const xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        isRequesting = false;
+
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                if (response.status === 'success') {
+                    window.location.href = {% url 'publications' %};
+                } else {
+                    enableErrorMessage(response.message);
+                    toggleLoadingSpinner();
+                }
+            } else {
+                const response = JSON.parse(xhr.responseText);
+                enableErrorMessage(response.message);
+                toggleLoadingSpinner();
+            }
+        }
+    };
+    xhr.open('POST', '{% url 'publications_edit_order' %}');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+    xhr.send(JSON.stringify(data));
+    isRequesting = true;
+}
+
+function toggleLoadingSpinner() {
+    const saveButtonTextEl = document.querySelector('#saveButton .text');
+    const saveButtonLoadingEl = document.querySelector('#saveButton .loading');
+    const saveButtonLoadingElDisplay = getComputedStyle(saveButtonLoadingEl, null).display;
+
+    if (saveButtonLoadingElDisplay === 'none') {
+        saveButtonTextEl.style.display = 'none';
+        saveButtonLoadingEl.style.display = 'inline';
+    } else {
+        saveButtonTextEl.style.display = 'inline';
+        saveButtonLoadingEl.style.display = 'none';
+    }
+}
+
+function enableErrorMessage(msg) {
+    const errorMessageEl = document.querySelector('.error-message');
+    errorMessageEl.innerHTML = msg;
+}
+
+</script>
+{% endblock %}

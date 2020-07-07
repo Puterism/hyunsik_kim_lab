@@ -1,0 +1,246 @@
+@import "../fontawesome/scss/fontawesome.scss";
+@import "../fontawesome/scss/solid.scss";
+
+$headerHeight: 81px;
+
+header {
+  margin: 0 auto;
+  background-color: transparent;
+  width: 100%;
+  height: $headerHeight;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  &.scrolled {
+    background-color: #333333;
+  }
+
+  a {
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+    line-height: $headerHeight;
+    height: 100%;
+  }
+
+  .title {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: $headerHeight;
+    position: relative;
+    //
+    //&:hover a::before, &.selected a::before {
+    //  content: '';
+    //  position: absolute;
+    //  top: 20px;
+    //  left: 1px;
+    //  width: 23px;
+    //  height: 4px;
+    //  background-color: #ff3939;
+    //}
+  }
+
+  .menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: right;
+    color: #ffffff;
+  }
+
+  .menu-item {
+    position: relative;
+    display: inline-block;
+    margin: 0 27px;
+    height: 100%;
+
+    &.selected a {
+      font-weight: bold;
+    }
+
+    &:hover a::before, &.selected a::before {
+      content: '';
+      position: absolute;
+      top: 25px;
+      left: 1px;
+      width: 23px;
+      height: 4px;
+      background-color: #ff3939;
+    }
+
+    &:hover a::before {
+      animation: menuItemHover .5s ease;
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+  }
+
+  #menu-toggle {
+    display: none;
+  }
+
+}
+
+.header-middle {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(/static/images/microscopes.jpg);
+  //background-attachment: fixed;
+  width: 100%;
+  height: 250px + $headerHeight;
+  position: relative;
+  text-align: center;
+  color: white;
+  padding-top: 130px;
+  z-index: 1;
+  box-sizing: border-box;
+  position: relative;
+  //margin-top: $headerHeight;
+
+  h2, p {
+    z-index: 1;
+    margin: 0 0 .5em 0;
+    animation: fadeIn 1s;
+  }
+
+  h2 {
+    font-size: 2em;
+  }
+
+  p {
+    font-weight: 300;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+    transition: background-color .5s;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    .container {
+      position: relative;
+    }
+
+    &.scrolled .container::before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      background-color: #333333;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .menu {
+      width: 100%;
+      height: 250px;
+      clear: both;
+      transition: visibility .5s, top .5s;
+      position: absolute;
+      left: 0;
+      top: -(250px + $headerHeight);
+      z-index: -2;
+
+      .menu-item {
+        width: 100%;
+        height: calc(250px / 4);
+        margin: 0;
+        text-align: center;
+        background-color: #333333;
+        border-top: 1px solid #444444;
+        box-sizing: border-box;
+
+        &.selected {
+          background-color: #222222;
+        }
+
+        a {
+          display: block;
+          &::before {
+            display: none;
+          }
+          line-height: calc(250px / 4);
+        }
+      }
+    }
+
+    &.menu-opened {
+      .menu {
+        opacity: 1;
+        top: $headerHeight;
+      }
+    }
+
+    #menu-toggle {
+      display: block;
+      color: white;
+      font-size: 28px;
+      float: right;
+      cursor: pointer;
+
+      i {
+        vertical-align: initial;
+      }
+
+      span {
+        font-size: .7em;
+      }
+    }
+  }
+
+  .header-middle {
+    font-size: 14px;
+    transition: padding-top .5s;
+
+    h2, p {
+      transition: opacity .5s ease;
+      opacity: 1;
+    }
+
+    &.menu-opened {
+      &::before {
+        background-color: rgba(51, 51, 51, 1);
+      }
+      padding-top: 331px;
+
+      h2, p {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+
+@keyframes menuItemHover {
+  from {
+    left: -10px;
+    opacity: 0;
+  }
+  to {
+    left: 1px;
+    opacity: 1;
+  }
+}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+{% block title %}
+<title>연구실 멤버 소개 - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/members.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+
+{% block content %}
+    <section class="header-middle">
+        <h2>연구실 멤버 소개</h2>
+        <p>{{ site.page_subtitle }}</p>
+    </section>
+    <main>
+        <section class="members page">
+            {% if user.is_authenticated %}
+                <div class="admin-menu">
+                    <a href="{% url 'members_add' %}">
+                        <button>멤버 추가</button>
+                    </a>
+                </div>
+            {% endif %}
+            {% if professor %}
+                <div class="professor">
+                    <a href="{% url 'professor' %}">
+                        <div class="profile">
+                            {% if professor.photo %}
+                                <div class="profile-image" role="img" aria-label="{{ professor.name }}" style="background-image: url({{ professor.photo.url }})"></div>
+                            {% else %}
+                                <div class="profile-image"></div>
+                            {% endif %}
+                            <div class="content">
+                                <h3 class="name">{{ professor.name }}</h3>
+                                {% if professor.email %}
+                                    <p class="email">{{ professor.email }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+
+            {% if lists %}
+                {% for list in lists %}
+                    <h2 class="page-header">{{ list.position }}</h2>
+                    {% if list.members %}
+                        <ul class="list">
+                            {% for item in list.members %}
+                                <li class="item">
+                                    {% if item.photo %}
+                                        <div class="profile-image" role="img" aria-label="{{ item.name | safe }}" style="background-image: url({{ item.photo.url }})"></div>
+                                    {% else %}
+                                        <div class="profile-image"></div>
+                                    {% endif %}
+                                    <div class="content">
+                                        <h3 class="name">{{ item.name | safe }}</h3>
+                                        {% if item.position %}
+                                            <p class="position">{{ item.position | safe  }}</p>
+                                        {% endif %}
+                                        {% if item.email %}
+                                            <p class="email">{{ item.email | safe  }}</p>
+                                        {% endif %}
+                                        {% if item.description %}
+                                            <p class="description">{{ item.description | safe }}</p>
+                                        {% endif %}
+                                    </div>
+                                    {% if user.is_authenticated %}
+                                        <div class="control">
+                                            <a href="{% url 'members_edit' item.id %}" class="edit"><i class="fas fa-pen"></i>수정</a>
+                                        </div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>등록된 멤버가 없습니다.</p>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>등록된 멤버가 없습니다.</p>
+            {% endif %}
+
+        </section>
+    </main>
+{% endblock %}

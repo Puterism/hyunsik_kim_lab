@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>메인 소개 수정 - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/home.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+
+{% block content %}
+    <section class="header-middle">
+        {% if home %}
+            <h2>{{ home.title }}</h2>
+            <p>{{ home.subtitle }}</p>
+        {% endif %}
+    </section>
+    <main>
+        <section class="home">
+            {% if user.is_authenticated %}
+                <h2 class="page-header">메인 소개 수정</h2>
+                <form method="post" action="{% url 'home_edit' %}" enctype="multipart/form-data" class="editor">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    <p>
+                        <label for="id_title">
+                            메인 제목
+                        </label>
+                        {{ form.title }}
+                        {{ form.title.error }}
+                    </p>
+                    <p>
+                        <label for="id_title">
+                            메인 부제목
+                        </label>
+                        {{ form.subtitle }}
+                        {{ form.subtitle.error }}
+                    </p>
+                    <div>
+                        <label for="id_title">
+                            메인 소개
+                        </label>
+                        {{ form.content }}
+                        {{ form.content.error }}
+                    </div>
+                    <input type="submit" value="수정하기" />
+                </form>
+            {% else %}
+                <p>관리자 전용 페이지입니다</p>
+            {% endif %}
+        </section>
+    </main>
+{% endblock %}

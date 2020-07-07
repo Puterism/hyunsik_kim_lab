@@ -1,0 +1,116 @@
+@import url(./SpoqaHanSans-kr.css);
+@import 'mixins';
+
+body {
+  font-family: 'Spoqa Han Sans', 'sans-serif';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: auto;
+}
+
+.container, main {
+  max-width: 994px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 27px;
+  box-sizing: border-box;
+}
+
+main {
+  min-height: calc(100vh - 250px);
+}
+
+h1, h2, h3, h4, h5, h6, p, span, textarea {
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+.page {
+  padding: 40px 0;
+}
+
+.page-header {
+  font-size: 36px;
+  font-weight: bold;
+  position: relative;
+  margin-bottom: 34px;
+
+  &:before {
+    content: '';
+    width: 30px;
+    height: 5px;
+    background-color: #ff3939;
+    display: block;
+  }
+}
+
+button, input[type="submit"], input[type="button"] {
+  @include btn;
+}
+
+.admin-menu {
+  margin: 1em 0;
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+  }
+}
+
+.info-message {
+  font-size: .9em;
+}
+
+.error-message {
+  color: red;
+  font-size: .9em;
+}
+
+.control {
+  margin: .5em 0;
+
+  .edit, .delete {
+    text-decoration: none;
+    margin-right: 1em;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
+  .edit {
+    color: $editColor;
+  }
+
+  .delete {
+    color: $deleteColor;
+  }
+
+  a:last-child {
+    margin: 0;
+  }
+
+}
+
+.delete {
+  margin-left: 1em;
+  color: $deleteColor;
+  text-decoration: none;
+
+  &:hover {
+    opacity: .6;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    margin-top: -10px;
+    opacity: 0;
+  }
+  to {
+    margin-top: 0;
+    opacity: 1;
+  }
+}

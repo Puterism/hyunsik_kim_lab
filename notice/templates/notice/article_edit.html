@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>공지사항 수정 - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/article_write.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+
+{% block content %}
+    <section class="header-middle">
+        <h2>공지사항</h2>
+        <p>{{ site.page_subtitle }}</p>
+    </section>
+    <main>
+        <section class="article-write page">
+            {% if user.is_authenticated %}
+                <h2 class="page-header">공지사항 수정</h2>
+                <form method="post" action="{% url 'article_edit' article.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    {{ form.as_p }}
+                    <div class="form-input">
+                        {% for item in form %}
+                            {% if item.errors %}
+                                {% for error in item.errors %}
+                                    <p class="error-message">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                        <input type="submit" value="수정하기" />
+                    </div>
+                </form>
+            {% else %}
+                <p>관리자 전용 페이지입니다</p>
+            {% endif %}
+        </section>
+    </main>
+{% endblock %}

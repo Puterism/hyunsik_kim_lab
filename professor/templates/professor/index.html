@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>교수님 소개 - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/professor.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <section class="header-middle">
+        <h2>교수님 소개</h2>
+        <p>{{ site.page_subtitle }}</p>
+    </section>
+    <main>
+        <article class="professor page">
+            {% if user.is_authenticated %}
+            <div class="admin-menu">
+                <a href="{% url 'professor_profile_edit' %}"><button>프로필 수정</button></a>
+                <a href="{% url 'professor_menu_add' %}"><button>메뉴 추가</button></a>
+                <a href="{% url 'professor_item_add' %}"><button>항목 추가</button></a>
+            </div>
+            {% endif %}
+            <div class="profile-container">
+                <section class="profile" aria-labelledby="profile">
+                    {% if profile.photo %}
+                        <div class="image" role="img" aria-label="{{ profile.name }}" style="background-image: url({{ profile.photo.url }})"></div>
+                    {% else %}
+                        <div class="image"></div>
+                    {% endif %}
+                    <div class="content">
+                        <h2 class="name">{{ profile.name }}</h2>
+                        <p class="info position">
+                            <span>{{ profile.position }}</span>
+                        </p>
+                        <p class="info location">
+                            <span>{{ profile.location }}</span>
+                        </p>
+                        <p class="info email">
+                            <span>{{ profile.email }}</span>
+                        </p>
+                    </div>
+                </section>
+                <section class="careers">
+                    {% for list in lists %}
+                    <section class="menu">
+                        <h3 class="list-header">
+                            {{ list.header }}
+                            {% if user.is_authenticated %}
+                                <div class="control">
+                                    <a href="{% url 'professor_menu_edit' list.id %}" class="edit"><i class="fas fa-pen"></i>메뉴 수정</a>
+                                </div>
+                            {% endif %}
+                        </h3>
+                        <ul class="list">
+                            {% if list.items %}
+                                {% for item in list.items %}
+                                <li class="item">
+                                    {% if item.year %}
+                                        <p class="year">{{ item.year }}</p>
+                                    {% endif %}
+                                    <div class="content">
+                                        {% if item.title %}
+                                            <h4 class="title">{{ item.title }}</h4>
+                                        {% endif %}
+                                        {% if item.subtitle %}
+                                            <h5 class="subtitle">{{ item.subtitle }}</h5>
+                                        {% endif %}
+                                        {% if item.description %}
+                                            <p class="description">
+                                                {{ item.description | linebreaksbr }}
+                                            </p>
+                                        {% endif %}
+
+                                        {% if user.is_authenticated %}
+                                            <div class="control">
+                                                <a href="{% url 'professor_item_edit' item.id %}" class="edit"><i class="fas fa-pen"></i>항목 수정</a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            {% else %}
+                                <p>등록된 내용이 없습니다.</p>
+                            {% endif %}
+                        </ul>
+                    </section>
+                    {% endfor %}
+                </section>
+            </div>
+
+        </article>
+    </main>
+{% endblock %}

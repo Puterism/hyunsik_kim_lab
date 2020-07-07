@@ -1,0 +1,99 @@
+@import "../fontawesome/scss/fontawesome.scss";
+@import "../fontawesome/scss/solid.scss";
+
+.notice {
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .paginator {
+    text-align: center;
+
+    a {
+      display: inline-block;
+      width: 2em;
+      height: 2em;
+      line-height: 2em;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    a:hover, .selected {
+      background-color: #333333;
+      color: white;
+    }
+
+    .disabled {
+      color: lightgray;
+
+      &:hover {
+        background: none;
+        color: lightgray;
+      }
+    }
+  }
+
+  article {
+    animation: fadeIn 1s;
+
+    padding-top: 100px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #eeeeee;
+    position: relative;
+
+    .title, .date, .content {
+      transition: margin-left .5s ease, opacity .5s ease;
+      margin-left: 10px;
+    }
+
+    &:hover {
+      .title, .date, .content {
+        margin-left: 0;
+      }
+      &::before {
+        margin-left: 0;
+        opacity: 1;
+      }
+    }
+
+    &::before {
+      width: 68px;
+      height: 10px;
+      position: absolute;
+      background-color: #ff3939;
+      content: '';
+      opacity: 0;
+      transition: .5s ease;
+    }
+
+    .title {
+      font-family: inherit;
+      font-size: 2em;
+      font-weight: bold;
+      margin-top: .4em;
+      margin-bottom: .4em;
+    }
+
+    .date {
+      &:before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-calendar);
+        margin-right: 5px;
+      }
+
+      color: gray;
+      font-family: inherit;
+      font-weight: normal;
+      font-size: 1em;
+      margin-bottom: 2em;
+    }
+
+    .content {
+      font-family: inherit;
+      font-size: 1.2em;
+    }
+
+  }
+}

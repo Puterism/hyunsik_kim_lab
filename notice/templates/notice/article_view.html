@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+{% block title %}
+<title>{{ article.title }} - 공지사항 - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/article_view.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <section class="header-middle">
+        <h2>공지사항</h2>
+        <p>{{ site.page_subtitle }}</p>
+    </section>
+    <main>
+        <section class="article-view page">
+            {% if user.is_authenticated %}
+                <div class="admin-menu">
+                    <a href="{% url 'article_edit' article.id %}"><button>게시글 수정</button></a>
+                    <a href="{% url 'article_delete' article.id %}"><button>게시글 삭제</button></a>
+                </div>
+            {% endif %}
+            <article>
+                <h2 class="title">{{ article.title }}</h2>
+                <p class="date">{{ article.created_at | date:"yy. m. d." }}</p>
+                <div class="content">
+                    {{ article.content | safe }}
+                </div>
+            </article>
+            <a href="{% url 'article_list' %}" class="back">목록으로 돌아가기</a>
+        </section>
+    </main>
+{% endblock %}

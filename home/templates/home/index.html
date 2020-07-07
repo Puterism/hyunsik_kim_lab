@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>{{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/home.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+
+{% block content %}
+    <section class="header-middle">
+        {% if home %}
+            <h2>{{ home.title }}</h2>
+            <p>{{ home.subtitle }}</p>
+        {% endif %}
+    </section>
+    <main>
+        <section class="home">
+            {% if user.is_authenticated %}
+                <a href="{% url 'home_edit' %}"><button>메인 소개 수정</button></a>
+                <a href="{% url 'site_setting' %}"><button><i class="fas fa-cog"></i> 사이트 설정</button></a>
+            {% endif %}
+            {% if home %}
+                <section class="introduce part">
+                    {{ home.content | safe }}
+                </section>
+            {% endif %}
+            <section class="notice part">
+                <section class="menu">
+                    <a href="{% url 'article_list' %}"><h2>최근 공지사항</h2></a>
+                    <a href="{% url 'article_list' %}">더보기</a>
+                </section>
+                <ul class="list">
+                    {% if article %}
+                        <a href="{% url 'article_view' article.id %}">
+                            <li class="item">
+                                <h3 class="title">{{ article.title }}</h3>
+                                <p class="date">{{ article.created_at | date:"yy. m. d." }}</p>
+                            </li>
+                        </a>
+                    {% else %}
+                        <p>최근 공지사항이 없습니다.</p>
+                    {% endif %}
+                </ul>
+            </section>
+            <section class="members part">
+                <section class="menu">
+                    <a href="{% url 'members' %}"><h2>연구실 멤버</h2></a>
+                    <a href="{% url 'members' %}">더보기</a>
+                </section>
+                {% if members %}
+                    <ul class="list">
+                        {% for member in members %}
+                            <li class="item" role="img" aria-label="{{ member.name | safe }}"
+                                style="background-image: url({% if member.photo %}{{ member.photo.url }}{% else %}/static/images/blank-profile.png{% endif %})"
+                            >
+{#                                <img alt="{{ member.name }}" src="{% if member.photo %}{{ member.photo.url }}{% else %}/static/images/blank-profile.png{% endif %}" />#}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>등록된 멤버가 없습니다.</p>
+                {% endif %}
+            </section>
+        </section>
+    </main>
+{% endblock %}

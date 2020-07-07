@@ -1,0 +1,219 @@
+@import "../fontawesome/scss/fontawesome.scss";
+@import "../fontawesome/scss/solid.scss";
+@import "mixins";
+
+$timelineYearWidth: 100px;
+$timelineDivLineWidth: 5px;
+
+.timeline-include {
+  position: relative;
+  background-attachment: fixed;
+
+  &::before {
+    content: '';
+    width: $timelineDivLineWidth;
+    height: 100%;
+    background-color: #000000;
+    position: absolute;
+    left: $mainPadding + $timelineYearWidth;
+    top: 0;
+  }
+}
+
+.research {
+  height: 100%;
+  position: relative;
+
+  .timeline {
+    position: relative;
+    list-style: none;
+    padding: 40px 0 0 0;
+    margin: 0;
+    animation: fadeIn 1s;
+
+    li {
+      position: relative;
+      margin-bottom: 100px;
+    }
+
+    .selected {
+      .content {
+        top: -5px;
+
+        .description {
+          visibility: visible;
+          height: auto;
+          opacity: 1;
+        }
+      }
+    }
+
+
+    .year {
+      width: $timelineYearWidth;
+      font-size: 1.5em;
+      font-weight: bold;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .info {
+      pointer-events: none;
+    }
+
+    .content {
+      width: calc(100% - #{$timelineYearWidth} - #{$timelineDivLineWidth});
+      display: inline-block;
+      position: relative;
+      transition: top .1s ease;
+      top: 0;
+      cursor: pointer;
+
+      &::before {
+        content: '';
+        width: 15px;
+        height: 15px;
+        background-color: black;
+        position: absolute;
+        left: -8px;
+        top: 8px;
+      }
+
+      .title {
+        font-weight: bold;
+        font-size: 1.5em;
+      }
+
+      .author {
+        margin-top: .2em;
+        font-size: 1.2em;
+      }
+
+      .description {
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transition: .2s ease;
+        cursor: auto;
+
+        img {
+          width: 100% !important;
+          height: auto !important;
+        }
+      }
+
+      .title, .author, .description, .control a {
+        margin: 0;
+        padding-left: 45px;
+      }
+
+      .control {
+        margin-top: 1.5em;
+
+        a {
+          color: #2980b9;
+          text-decoration: none;
+        }
+
+      }
+    }
+  }
+
+  .form-input {
+    margin: 1em 0;
+  }
+
+  label {
+    display: none;
+  }
+
+  p {
+    margin: .5em 0;
+  }
+
+  #id_year {
+    font-weight: bold;
+    width: 80px;
+  }
+
+  #id_title, #id_author, #id_year {
+    border: none;
+    padding: 4px;
+  }
+
+  #id_title {
+    width: 100%;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  #id_author {
+    width: 100%;
+    font-size: 1.2em;
+  }
+
+  .editor .timeline {
+    .info {
+      pointer-events: auto;
+    }
+
+    .description {
+      visibility: visible;
+      opacity: 1;
+      height: auto;
+      padding-left: 0;
+      margin: 10px 0;
+    }
+
+    .content {
+      top: 0;
+      cursor: auto;
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .timeline-include {
+    &::before {
+      left: 20px;
+    }
+  }
+
+  .research {
+    .timeline {
+      li {
+        padding-left: 20px;
+      }
+
+      .year {
+        width: 100%;
+        display: block;
+        padding-bottom: .3em;
+      }
+
+      .content {
+        margin: 0;
+        display: block;
+        width: 100%;
+
+        &::before {
+          left: -32px;
+          top: 11px;
+        }
+
+        .title, .author, .description, .control a {
+          padding: 0;
+        }
+
+        &:hover {
+          top: 0;
+        }
+      }
+    }
+  }
+}

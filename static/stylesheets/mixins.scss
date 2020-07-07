@@ -1,0 +1,33 @@
+@mixin btn {
+  background: none;
+  border: 1px solid black;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: background-color .1s ease;
+
+  &:hover {
+    color: white;
+    background-color: black;
+  }
+}
+
+@mixin textbox {
+  display: block;
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 1.2em;
+  padding: .5em 0;
+  box-sizing: border-box;
+  transition: border-bottom .1s ease;
+  outline: none;
+
+  &:focus {
+    border-bottom: 3px solid black;
+  }
+}
+
+$editColor: #2980b9;
+$deleteColor: #c0392b;
+$pointColor: #ff3939;
+
+$mainPadding: 27px;

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>Research 추가 - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/research.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <section class="header-middle">
+        <h2>Research</h2>
+        <p>{{ site.page_subtitle }}</p>
+    </section>
+    <main>
+        <section class="research page">
+            {% if user.is_authenticated %}
+                <h2 class="page-header">Research 추가</h2>
+            <form method="post" action="{% url 'research_add' %}" enctype="multipart/form-data" class="editor">
+                {% csrf_token %}
+                {{ form.media }}
+                <ul class="timeline">
+                    <li>
+                        <div class="year">
+                            {{ form.year }}
+                            {% if form.year.errors %}
+                                {% for error in form.year.errors %}
+                                    <p class="error-message">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <div class="info">
+                                {{ form.title }}
+                                {% if form.title.errors %}
+                                    {% for error in form.title.errors %}
+                                        <p class="error-message">{{ error }}</p>
+                                    {% endfor %}
+                                {% endif %}
+
+                                {{ form.author }}
+                                {% if form.author.errors %}
+                                    {% for error in form.author.errors %}
+                                        <p class="error-message">{{ error }}</p>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="description">
+                            {{ form.content }}
+                            {% if form.content.errors %}
+                                {% for error in form.content.errors %}
+                                    <p class="error-message">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+                <input type="submit" value="추가하기" />
+            </form>
+            {% else %}
+                <p>관리자 전용 페이지입니다</p>
+            {% endif %}
+        </section>
+    </main>
+{% endblock %}

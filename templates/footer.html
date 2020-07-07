@@ -1,0 +1,57 @@
+{% load sass_tags %}
+{% load static %}
+
+<footer>
+{#    {% if recent_notice %}#}
+{#        <div class="notice">#}
+{#            <a href="{% url 'article_view' recent_notice.id %}" class="recent-notice">#}
+{#                <div class="container">#}
+{#                    <span class="recent-notice-label">#}
+{#                        최근 공지사항#}
+{#                    </span>#}
+{#                    <span class="title">#}
+{#                        {{ recent_notice.title }}#}
+{#                    </span>#}
+{#                </div>#}
+{#            </a>#}
+{#        </div>#}
+{#    {% endif %}#}
+    <div class="container footer-contents">
+        <div class="content">
+            <div id="map"></div>
+        </div>
+        <div class="content contact-us">
+            <h2>Contact Us</h2>
+            <p class="address">
+                <span>{{ site.address }}</span>
+            </p>
+            <p class="tel">
+                <span>{{ site.tel }}</span>
+            </p>
+            <p class="email">
+                <span>{{ site.email }}</span>
+            </p>
+            {% if user.is_authenticated %}
+            <p>
+                <a href="{% url 'logout' %}"><button>관리자 로그아웃</button></a>
+            </p>
+            {% endif %}
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=65bf07fd4aff1651f187727bd7ed5b90"></script>
+<script>
+    var container = document.getElementById('map');
+    var options = {
+        center: new kakao.maps.LatLng(37.552151, 126.926046),
+        level: 5
+    };
+    var map = new kakao.maps.Map(container, options);
+
+    var markerPosition  = new kakao.maps.LatLng(37.552201, 126.926054);
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+    marker.setMap(map);
+</script>
