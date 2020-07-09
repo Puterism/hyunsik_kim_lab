@@ -117,7 +117,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hyunsik_kim_lab',
-        'USER': 'root',
+        'USER': 'puterism',
         'PASSWORD': get_secret("DB_PASSWORD"),
         'HOST': 'localhost',
         'PORT': '3306',
