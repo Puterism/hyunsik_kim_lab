@@ -61,13 +61,6 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
 ]
 
-SASS_ROOT = os.path.join(BASE_DIR, 'static')
-SASS_PROCESSOR_ENABLED = True
-SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static')
-SASS_OUTPUT_STYLE = 'compact'
-
-NODE_NPX_PATH = None
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -172,6 +165,14 @@ SESSION_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000  # 365 * 24 * 60 * 60
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+
+# SASS
+SASS_ROOT = os.path.join(BASE_DIR, 'static')
+SASS_PROCESSOR_ENABLED = True
+SASS_PROCESSOR_ROOT = STATIC_ROOT
+SASS_OUTPUT_STYLE = 'compact'
+
 
 
 # Media Settings
