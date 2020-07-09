@@ -121,9 +121,9 @@ DATABASES = {
         'PASSWORD': get_secret("DB_PASSWORD"),
         'HOST': 'localhost',
         'PORT': '3306',
-    },
-    'OPTIONS': {
-        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        },
     },
 }
 
