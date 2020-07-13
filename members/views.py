@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Member, Position
-from .forms import MemberForm
+from .forms import MemberForm, PositionForm
 from professor.models import Profile
 
 
@@ -12,7 +12,7 @@ def members(request):
     professor = Profile.objects.last()
 
     for position in positions:
-        lists.append({'position': position, 'members': Member.objects.filter(position=position.id)})
+        lists.append({'id': position.id, 'position': position, 'members': Member.objects.filter(position=position.id)})
 
     context = {
         'lists': lists,
@@ -75,4 +75,62 @@ def members_edit(request, id):
 def members_delete(request, id):
     member = get_object_or_404(Member, id=id)
     member.delete()
+    return redirect('members')
+
+
+@login_required
+def position_add(request):
+    if request.method == 'POST':
+        form = PositionForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('members')
+        else:
+            context = {
+                'form': form,
+            }
+            return render(request, 'members/position_add.html', context)
+
+    else:
+        form = PositionForm()
+
+        context = {
+            'form': form,
+        }
+        return render(request, 'members/position_add.html', context)
+
+
+@login_required
+def position_edit(request, id):
+    position = get_object_or_404(Position, id=id)
+
+    if request.method == 'POST':
+        form = PositionForm(request.POST, instance=position)
+
+        if form.is_valid():
+            form.save()
+            return redirect('members')
+        else:
+            context = {
+                'position': position,
+                'form': form,
+            }
+            return render(request, 'members/position_edit.html', context)
+
+    else:
+        form = PositionForm(instance=position)
+
+        context = {
+            'position': position,
+            'form': form,
+        }
+
+        return render(request, 'members/position_edit.html', context)
+
+
+@login_required
+def position_delete(request, id):
+    position = get_object_or_404(Position, id=id)
+    position.delete()
     return redirect('members')

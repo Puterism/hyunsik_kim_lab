@@ -24,6 +24,9 @@
                     <a href="{% url 'members_add' %}">
                         <button>멤버 추가</button>
                     </a>
+                    <a href="{% url 'position_add' %}">
+                        <button>분류 추가</button>
+                    </a>
                 </div>
             {% endif %}
             {% if professor %}
@@ -49,6 +52,11 @@
             {% if lists %}
                 {% for list in lists %}
                     <h2 class="page-header">{{ list.position }}</h2>
+                    {% if user.is_authenticated %}
+                        <div class="control">
+                            <a href="{% url 'position_edit' list.id %}" class="edit"><i class="fas fa-pen"></i>분류 수정</a>
+                        </div>
+                    {% endif %}
                     {% if list.members %}
                         <ul class="list">
                             {% for item in list.members %}

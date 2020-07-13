@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load sass_tags %}
+{% load static %}
+
+
+{% block title %}
+<title>연구실 멤버 분류 수정 - {{ site.title }}</title>
+{% endblock %}
+
+{% block style %}
+<link href="{% sass_src 'stylesheets/members.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <section class="header-middle">
+        <h2>연구실 멤버 소개</h2>
+        <p>{{ site.page_subtitle }}</p>
+    </section>
+    <main>
+        <article class="members page">
+            {% if user.is_authenticated %}
+                <h2 class="page-header">
+                    연구실 멤버 분류 수정
+                </h2>
+                <form method="post" action="{% url 'position_edit' position.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="page-header">
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                            {% for error in form.title.errors %}
+                                <span class="error-message">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <input type="submit" value="수정하기" />
+                    <a href="{% url 'position_delete' position.id %}" class="delete"><i class="fas fa-trash-alt"></i> 삭제하기</a>
+                </form>
+            {% else %}
+                <p>관리자 전용 페이지입니다.</p>
+            {% endif %}
+        </article>
+    </main>
+{% endblock %}
+

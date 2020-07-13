@@ -36,7 +36,7 @@ def get_secret(setting, secrets=secrets):
 SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '192.168.0.3', '49.50.172.16']
 
@@ -166,8 +166,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Secure-only cookie
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
 
 SECURE_HSTS_SECONDS = 31536000  # 365 * 24 * 60 * 60
 SECURE_HSTS_PRELOAD = True

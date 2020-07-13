@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Member
+from .models import Member, Position
 
 
 class MemberForm(forms.ModelForm):
@@ -15,7 +15,6 @@ class MemberForm(forms.ModelForm):
         self.fields['email'].widget.attrs.update({
             'placeholder': '이메일 (선택 입력)',
         })
-
 
     def resize(self, data, width, height, force=True):
         from io import BytesIO
@@ -65,7 +64,7 @@ class MemberForm(forms.ModelForm):
 
     class Meta:
         model = Member
-        fields = ('photo', 'name', 'position', 'email', 'description', )
+        fields = ('photo', 'name', 'position', 'email', 'description',)
 
     photo = forms.ImageField(
         label='',
@@ -82,3 +81,17 @@ class MemberForm(forms.ModelForm):
             'placeholder': '설명 (선택 입력)'
         })
     )
+
+
+class PositionForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(PositionForm, self).__init__(*args, **kwargs)
+
+        self.fields['title'].widget.attrs.update({
+            'autoFocus': 'autoFocus',
+            'placeholder': '분류 입력...',
+        })
+
+    class Meta:
+        model = Position
+        fields = ('title',)

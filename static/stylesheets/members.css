@@ -3016,6 +3016,10 @@ readers do not read off random characters that represent icons */
 
 .members form label:hover .profile-image::before { content: "이미지 선택"; color: white; font-size: 2em; display: block; position: absolute; left: 0; right: 0; top: 0; line-height: 200px; border-radius: 100px; background-color: rgba(0, 0, 0, 0.1); }
 
+.members form .page-header::before { display: none; }
+
+.members form #id_title { border: none; }
+
 .members form .image-upload { display: none; }
 
 .members form .form-input.error input, .members form .form-input.error textarea { border-bottom: 1px solid red; }

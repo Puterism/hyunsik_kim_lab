@@ -188,6 +188,16 @@
       }
     }
 
+    .page-header {
+      &::before {
+        display: none;
+      }
+    }
+
+    #id_title {
+      border: none;
+    }
+
     .image-upload {
       display: none;
     }
