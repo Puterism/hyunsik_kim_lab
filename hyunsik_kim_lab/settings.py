@@ -33,12 +33,13 @@ def get_secret(setting, secrets=secrets):
         error_msg = "Set the {} environment variable".format(setting)
         raise ImproperlyConfigured(error_msg)
 
+
 SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '192.168.0.3', '49.50.172.16']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '192.168.0.3', '52.78.103.40']
 
 # Application definition
 
@@ -157,12 +158,10 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
 # SASS
 SASS_PROCESSOR_ENABLED = True
 SASS_ROOT = os.path.join(BASE_DIR, 'static')
 SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static')
-
 
 # Secure-only cookie
 
@@ -172,7 +171,6 @@ SESSION_COOKIE_SECURE = False
 SECURE_HSTS_SECONDS = 31536000  # 365 * 24 * 60 * 60
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-
 
 # Media Settings
 
