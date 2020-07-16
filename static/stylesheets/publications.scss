@@ -8,6 +8,11 @@
     padding-left: 1.5em;
     animation: fadeIn 1s ease;
 
+    .label {
+      font-weight: bold;
+      padding: 1.3em 0 0.6em 0;
+    }
+
     .item {
       margin-bottom: 2em;
 
@@ -41,6 +46,9 @@
       display: none;
     }
 
+    #id_label {
+      max-width: 300px;
+    }
   }
 
   #saveButton {

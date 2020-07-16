@@ -32,8 +32,12 @@
             {% if publications %}
                 <ol class="list" reversed>
                      {% for item in publications %}
+                        {% ifchanged %}
+                            <h3 class="label">
+                                {{ item.label }}
+                            </h3>
+                        {% endifchanged %}
                         <li class="item">
-{#                            <h3 class="number">{{ item.order }}</h3>#}
                             <div class="description">{{ item.content | safe | linebreaksbr }}</div>
                             {% if user.is_authenticated %}
                                 <div class="control">

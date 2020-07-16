@@ -4536,6 +4536,9 @@ readers do not read off random characters that represent icons */
   margin: 0;
   padding-left: 1.5em;
   animation: fadeIn 1s ease; }
+  .publications .list .label {
+    font-weight: bold;
+    padding: 1.3em 0 0.6em 0; }
   .publications .list .item {
     margin-bottom: 2em; }
     .publications .list .item h3 {
@@ -4568,6 +4571,9 @@ readers do not read off random characters that represent icons */
 
 .publications form label {
   display: none; }
+
+.publications form #id_label {
+  max-width: 300px; }
 
 .publications #saveButton .loading {
   display: none; }
