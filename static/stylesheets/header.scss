@@ -1,5 +1,6 @@
 @import "../fontawesome/scss/fontawesome.scss";
 @import "../fontawesome/scss/solid.scss";
+@import "mixins";
 
 $headerHeight: 81px;
 
@@ -32,6 +33,7 @@ header {
     color: #ffffff;
     line-height: $headerHeight;
     position: relative;
+
     //
     //&:hover a::before, &.selected a::before {
     //  content: '';
@@ -69,7 +71,7 @@ header {
       left: 1px;
       width: 23px;
       height: 4px;
-      background-color: #ff3939;
+      background-color: $pointColor;
     }
 
     &:hover a::before {

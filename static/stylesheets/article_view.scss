@@ -1,5 +1,6 @@
 @import "../fontawesome/scss/fontawesome.scss";
 @import "../fontawesome/scss/solid.scss";
+@import "mixins";
 
 .article-view {
   article {
@@ -21,7 +22,7 @@
     &::before, &::after {
       width: 68px;
       height: 10px;
-      background-color: #ff3939;
+      background-color: $pointColor;
       content: '';
       display: block;
     }

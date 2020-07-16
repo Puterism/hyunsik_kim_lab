@@ -110,7 +110,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hyunsik_kim_lab',
-        'USER': 'puterism',
+        'USER': 'root',
         'PASSWORD': get_secret("DB_PASSWORD"),
         'HOST': 'localhost',
         'PORT': '3306',
@@ -157,6 +157,13 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+
+# SASS
+SASS_PROCESSOR_ENABLED = True
+SASS_ROOT = os.path.join(BASE_DIR, 'static')
+SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 # Secure-only cookie
 
 CSRF_COOKIE_SECURE = False
@@ -165,14 +172,6 @@ SESSION_COOKIE_SECURE = False
 SECURE_HSTS_SECONDS = 31536000  # 365 * 24 * 60 * 60
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-
-
-# SASS
-SASS_ROOT = os.path.join(BASE_DIR, 'static')
-SASS_PROCESSOR_ENABLED = True
-SASS_PROCESSOR_ROOT = STATIC_ROOT
-SASS_OUTPUT_STYLE = 'compact'
-
 
 
 # Media Settings

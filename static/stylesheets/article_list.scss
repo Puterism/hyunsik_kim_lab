@@ -1,5 +1,6 @@
 @import "../fontawesome/scss/fontawesome.scss";
 @import "../fontawesome/scss/solid.scss";
+@import "mixins";
 
 .notice {
   a {
@@ -61,7 +62,7 @@
       width: 68px;
       height: 10px;
       position: absolute;
-      background-color: #ff3939;
+      background-color: $pointColor;
       content: '';
       opacity: 0;
       transition: .5s ease;
