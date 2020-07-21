@@ -33,9 +33,8 @@ $profileImageLength: 250px;
     }
 
     img {
-      padding: 50%;
-      background-position: center;
-      background-size: cover;
+      width: $profileImageLength;
+      height: $profileImageLength;
       border-radius: $profileImageLength / 2;
       margin: 0 auto 1em auto;
     }
