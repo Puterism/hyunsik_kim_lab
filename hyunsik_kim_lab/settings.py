@@ -37,7 +37,7 @@ def get_secret(setting, secrets=secrets):
 SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '192.168.0.3', '52.78.103.40', 'emelab.hongik.ac.kr']
 
@@ -165,8 +165,12 @@ SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Secure-only cookie
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+
+SECURE_SSL_REDIRECT = False
+
+SECURE_REFERRER_POLICY = 'origin'
 
 SECURE_HSTS_SECONDS = 31536000  # 365 * 24 * 60 * 60
 SECURE_HSTS_PRELOAD = True
