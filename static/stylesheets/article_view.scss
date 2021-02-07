@@ -1,12 +1,12 @@
-@import "../fontawesome/scss/fontawesome.scss";
-@import "../fontawesome/scss/solid.scss";
-@import "mixins";
+@import '../fontawesome/scss/fontawesome.scss';
+@import '../fontawesome/scss/solid.scss';
+@import 'mixins';
 
 .article-view {
   article {
     position: relative;
     margin: 80px 0;
-    animation: articlefadeIn .5s ease;
+    animation: articlefadeIn 0.5s ease;
 
     p {
       font-weight: 300;
@@ -19,7 +19,8 @@
       }
     }
 
-    &::before, &::after {
+    &::before,
+    &::after {
       width: 68px;
       height: 10px;
       background-color: $pointColor;
@@ -29,12 +30,12 @@
 
     &::before {
       margin-bottom: 40px;
-      animation: articleEffectTop .5s ease;
+      animation: articleEffectTop 0.5s ease;
     }
 
     &::after {
       margin-top: 40px;
-      animation: articleEffectBottom .5s ease;
+      animation: articleEffectBottom 0.5s ease;
     }
 
     .title {
@@ -58,7 +59,8 @@
       margin-bottom: 3em;
     }
   }
-  .back, .back:visited {
+  .back,
+  .back:visited {
     color: gray;
   }
 }
