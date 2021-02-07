@@ -4603,12 +4603,13 @@ readers do not read off random characters that represent icons */
   width: 100%;
   list-style: none;
   box-sizing: border-box;
-  display: flex; }
+  display: flex;
+  flex-wrap: wrap; }
   .members .list .item {
-    width: 33.33%;
+    flex: 0 0 33.333333%;
     vertical-align: top;
     text-align: center;
-    margin: 2em 1em;
+    margin: 2em 0;
     animation: fadeIn 1s ease; }
     .members .list .item h3,
     .members .list .item p {
