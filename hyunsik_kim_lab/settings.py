@@ -10,7 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import os, json
+import os
+import json
 from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -37,9 +38,10 @@ def get_secret(setting, secrets=secrets):
 SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '192.168.0.3', '52.78.103.40', 'emelab.hongik.ac.kr']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]',
+                 '192.168.0.3', '52.78.103.40', 'emelab.hongik.ac.kr']
 
 # Application definition
 
@@ -87,8 +89,7 @@ ROOT_URLCONF = 'hyunsik_kim_lab.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -165,8 +166,8 @@ SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Secure-only cookie
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
 
 # SECURE_SSL_REDIRECT = True
 
