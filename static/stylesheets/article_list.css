@@ -4545,7 +4545,8 @@ readers do not read off random characters that represent icons */
     line-height: 2em;
     margin: 0;
     box-sizing: border-box; }
-  .notice .paginator a:hover, .notice .paginator .selected {
+  .notice .paginator a:hover,
+  .notice .paginator .selected {
     background-color: #333333;
     color: white; }
   .notice .paginator .disabled {
@@ -4560,10 +4561,14 @@ readers do not read off random characters that represent icons */
   padding-bottom: 50px;
   border-bottom: 1px solid #eeeeee;
   position: relative; }
-  .notice article .title, .notice article .date, .notice article .content {
-    transition: margin-left .5s ease, opacity .5s ease;
+  .notice article .title,
+  .notice article .date,
+  .notice article .content {
+    transition: margin-left 0.5s ease, opacity 0.5s ease;
     margin-left: 10px; }
-  .notice article:hover .title, .notice article:hover .date, .notice article:hover .content {
+  .notice article:hover .title,
+  .notice article:hover .date,
+  .notice article:hover .content {
     margin-left: 0; }
   .notice article:hover::before {
     margin-left: 0;
@@ -4572,16 +4577,16 @@ readers do not read off random characters that represent icons */
     width: 68px;
     height: 10px;
     position: absolute;
-    background-color: #ff3939;
+    background-color: #ff6e1e;
     content: '';
     opacity: 0;
-    transition: .5s ease; }
+    transition: 0.5s ease; }
   .notice article .title {
     font-family: inherit;
     font-size: 2em;
     font-weight: bold;
-    margin-top: .4em;
-    margin-bottom: .4em; }
+    margin-top: 0.4em;
+    margin-bottom: 0.4em; }
   .notice article .date {
     color: gray;
     font-family: inherit;

@@ -8,6 +8,7 @@
 .members .list .item.add .profile-image:before,
 .members .list .item .email::before,
 .members .list .item .position::before,
+.members .professor .for-more-details::before,
 .members .professor .email::before,
 .far,
 .fal,
@@ -21,7 +22,7 @@
   text-rendering: auto;
   line-height: 1; }
 
-.members .list .item.add .profile-image:before, .members .list .item .email::before, .members .list .item .position::before, .members .professor .email::before {
+.members .list .item.add .profile-image:before, .members .list .item .email::before, .members .list .item .position::before, .members .professor .for-more-details::before, .members .professor .email::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -105,6 +106,7 @@
 .members .list .item.add .fa-pull-left.profile-image:before,
 .members .list .item .fa-pull-left.email::before,
 .members .list .item .fa-pull-left.position::before,
+.members .professor .fa-pull-left.for-more-details::before,
 .members .professor .fa-pull-left.email::before,
 .far.fa-pull-left,
 .fal.fa-pull-left,
@@ -116,6 +118,7 @@
 .members .list .item.add .fa-pull-right.profile-image:before,
 .members .list .item .fa-pull-right.email::before,
 .members .list .item .fa-pull-right.position::before,
+.members .professor .fa-pull-right.for-more-details::before,
 .members .professor .fa-pull-right.email::before,
 .far.fa-pull-right,
 .fal.fa-pull-right,
@@ -4541,6 +4544,7 @@ readers do not read off random characters that represent icons */
 .members .list .item.add .profile-image:before,
 .members .list .item .email::before,
 .members .list .item .position::before,
+.members .professor .for-more-details::before,
 .members .professor .email::before {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900; }
@@ -4565,55 +4569,63 @@ readers do not read off random characters that represent icons */
     text-decoration: none;
     color: inherit; }
   .members .professor .profile {
-    width: 300px;
-    display: inline-block; }
+    display: inline-block;
+    padding: 1rem; }
+  .members .professor .profile:hover .for-more-details {
+    display: block; }
   .members .professor .profile:hover .profile-image {
     background-size: 110%; }
   .members .professor .profile-image {
     width: 250px;
     height: 250px;
     border-radius: 150px;
-    transition: .2s ease;
+    transition: 0.2s ease;
     background-size: 100%; }
   .members .professor .name {
     font-size: 2em;
     font-weight: bold;
     margin-top: 0;
-    margin-bottom: .2em; }
+    margin-bottom: 0.2em; }
   .members .professor .email {
     margin: 0; }
     .members .professor .email::before {
       content: "\f0e0";
-      margin-right: .2em; }
+      margin-right: 0.2em; }
+  .members .professor .for-more-details {
+    color: #3498db; }
+    .members .professor .for-more-details::before {
+      content: "\f0c1";
+      margin-right: 0.2em; }
 
 .members .list {
   margin: 0;
   padding: 0;
   width: 100%;
   list-style: none;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  display: flex; }
   .members .list .item {
-    width: 200px;
-    display: inline-block;
+    width: 33.33%;
     vertical-align: top;
     text-align: center;
-    padding: 2em 1em;
+    margin: 2em 1em;
     animation: fadeIn 1s ease; }
-    .members .list .item h3, .members .list .item p {
+    .members .list .item h3,
+    .members .list .item p {
       margin: 0; }
     .members .list .item h3 {
       font-size: 1.8em;
       font-weight: bold;
-      margin-bottom: .2em; }
+      margin-bottom: 0.2em; }
     .members .list .item p {
-      font-size: .9em;
-      margin-bottom: .1em; }
+      font-size: 0.9em;
+      margin-bottom: 0.1em; }
       .members .list .item p::before {
         display: inline-block;
         font-size: 1em;
         text-align: center;
         box-sizing: border-box;
-        margin-right: .2em; }
+        margin-right: 0.2em; }
     .members .list .item .position::before {
       content: "\f19d"; }
     .members .list .item .email::before {
@@ -4625,7 +4637,7 @@ readers do not read off random characters that represent icons */
     .members .list .item.add .profile-image {
       background: none;
       border: 5px solid #dddddd;
-      transition: background-color .1s ease, color .1s ease;
+      transition: background-color 0.1s ease, color 0.1s ease;
       padding: 0;
       width: 200px;
       height: 200px;
@@ -4646,80 +4658,83 @@ readers do not read off random characters that represent icons */
         .members .list .item.add .profile-image:hover:before {
           color: white; }
 
-.members form label {
-  display: inline-block;
-  cursor: pointer;
-  box-sizing: border-box; }
-  .members form label:hover .profile-image::before {
-    content: "이미지 선택";
-    color: white;
-    font-size: 2em;
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    line-height: 200px;
-    border-radius: 100px;
-    background-color: rgba(0, 0, 0, 0.1); }
-
-.members form .page-header::before {
-  display: none; }
-
-.members form #id_title {
-  border: none; }
-
-.members form .image-upload {
-  display: none; }
-
-.members form .form-input.error input, .members form .form-input.error textarea {
-  border-bottom: 1px solid red; }
-
-.members form .form-input label {
-  display: none; }
-
-.members form .form-input select {
-  width: 200px; }
-
-.members form .form-input input, .members form .form-input textarea {
-  width: 200px;
-  padding: 0;
-  margin: 0;
-  border: none;
-  resize: none;
-  background: none;
-  text-align: center;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal; }
-
-.members form .form-input #id_name {
-  font-size: 1.8em;
-  font-weight: bold;
-  margin-bottom: .2em; }
-
-.members form .form-input #id_position {
-  border: none;
-  border-bottom: 1px solid black;
+.members form {
+  width: 33.33%;
   text-align: center; }
-
-.members form .form-input #id_position, .members form .form-input #id_email, .members form .form-input #id_description {
-  font-size: .9em;
-  margin-bottom: .1em; }
-
-.members form .form-input #id_description {
-  color: gray;
-  margin-bottom: 1em;
-  height: 5em; }
+  .members form label {
+    display: inline-block;
+    cursor: pointer;
+    box-sizing: border-box; }
+    .members form label:hover .profile-image::before {
+      content: '이미지 선택';
+      color: white;
+      font-size: 2em;
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      line-height: 200px;
+      border-radius: 100px;
+      background-color: rgba(0, 0, 0, 0.1); }
+  .members form .page-header::before {
+    display: none; }
+  .members form #id_title {
+    border: none; }
+  .members form .image-upload {
+    display: none; }
+  .members form .form-input.error input,
+  .members form .form-input.error textarea {
+    border-bottom: 1px solid red; }
+  .members form .form-input label {
+    display: none; }
+  .members form .form-input select {
+    min-width: 200px;
+    width: 100%; }
+  .members form .form-input input,
+  .members form .form-input textarea {
+    min-width: 200px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    resize: none;
+    background: none;
+    text-align: center;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal; }
+  .members form .form-input #id_name {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 0.2em; }
+  .members form .form-input #id_position {
+    border: none;
+    border-bottom: 1px solid black;
+    text-align: center; }
+  .members form .form-input #id_position,
+  .members form .form-input #id_email,
+  .members form .form-input #id_description {
+    font-size: 0.9em;
+    margin-bottom: 0.1em; }
+  .members form .form-input #id_description {
+    color: gray;
+    margin-bottom: 1em;
+    height: 5em; }
 
 @media screen and (max-width: 768px) {
-  .members .list .item {
+  .members .list {
     width: 100%;
-    padding: 2em 0; }
-    .members .list .item .content {
-      width: 200px;
-      margin: 0 auto; } }
+    flex-direction: column; }
+    .members .list .item {
+      width: 100%;
+      margin: 2em 0; }
+      .members .list .item .content {
+        width: 100%;
+        margin: 0 auto; }
+  .members form {
+    width: 100%; } }
 
 /*# sourceMappingURL=members.css.map */

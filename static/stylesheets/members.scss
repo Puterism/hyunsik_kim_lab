@@ -1,6 +1,6 @@
-@import "../fontawesome/scss/fontawesome.scss";
-@import "../fontawesome/scss/solid.scss";
-@import "mixins";
+@import '../fontawesome/scss/fontawesome.scss';
+@import '../fontawesome/scss/solid.scss';
+@import 'mixins';
 
 .members {
   .profile-image {
@@ -27,8 +27,15 @@
     }
 
     .profile {
-      width: 300px;
+      // width: 300px;
       display: inline-block;
+      padding: 1rem;
+    }
+
+    .profile:hover {
+      .for-more-details {
+        display: block;
+      }
     }
 
     .profile:hover .profile-image {
@@ -39,7 +46,7 @@
       width: 250px;
       height: 250px;
       border-radius: 150px;
-      transition: .2s ease;
+      transition: 0.2s ease;
       background-size: 100%;
     }
 
@@ -47,7 +54,7 @@
       font-size: 2em;
       font-weight: bold;
       margin-top: 0;
-      margin-bottom: .2em;
+      margin-bottom: 0.2em;
     }
 
     .email {
@@ -58,7 +65,18 @@
         @extend .fas;
 
         content: fa-content($fa-var-envelope);
-        margin-right: .2em;
+        margin-right: 0.2em;
+      }
+    }
+
+    .for-more-details {
+      color: #3498db;
+      &::before {
+        @extend %fa-icon;
+        @extend .fas;
+
+        content: fa-content($fa-var-link);
+        margin-right: 0.2em;
       }
     }
   }
@@ -69,39 +87,40 @@
     width: 100%;
     list-style: none;
     box-sizing: border-box;
+    display: flex;
 
     .item {
-      width: 200px;
-      display: inline-block;
+      width: 33.33%;
+      // display: inline-block;
       vertical-align: top;
       //box-sizing: border-box;
       text-align: center;
-      padding: 2em 1em;
+      margin: 2em 1em;
       animation: fadeIn 1s ease;
 
-      h3, p {
+      h3,
+      p {
         margin: 0;
       }
 
       h3 {
         font-size: 1.8em;
         font-weight: bold;
-        margin-bottom: .2em;
+        margin-bottom: 0.2em;
       }
 
       p {
-        font-size: .9em;
-        margin-bottom: .1em;
+        font-size: 0.9em;
+        margin-bottom: 0.1em;
 
         &::before {
           display: inline-block;
           font-size: 1em;
           text-align: center;
           box-sizing: border-box;
-          margin-right: .2em;
+          margin-right: 0.2em;
         }
       }
-
 
       .position {
         &::before {
@@ -125,8 +144,6 @@
         color: gray;
       }
 
-
-
       &.add {
         cursor: pointer;
       }
@@ -134,7 +151,7 @@
       &.add .profile-image {
         background: none;
         border: 5px solid #dddddd;
-        transition: background-color .1s ease, color .1s ease;
+        transition: background-color 0.1s ease, color 0.1s ease;
         padding: 0;
         width: 200px;
         height: 200px;
@@ -153,7 +170,6 @@
           color: #dddddd;
           line-height: 200px;
           font-size: 5em;
-
         }
 
         &:hover {
@@ -168,13 +184,16 @@
   }
 
   form {
+    width: 33.33%;
+    text-align: center;
+
     label {
       display: inline-block;
       cursor: pointer;
       box-sizing: border-box;
 
       &:hover .profile-image::before {
-        content: "이미지 선택";
+        content: '이미지 선택';
         color: white;
         font-size: 2em;
         display: block;
@@ -184,7 +203,7 @@
         top: 0;
         line-height: 200px;
         border-radius: 100px;
-        background-color: rgba(0, 0, 0, .1);
+        background-color: rgba(0, 0, 0, 0.1);
       }
     }
 
@@ -204,7 +223,8 @@
 
     .form-input {
       &.error {
-        input, textarea {
+        input,
+        textarea {
           border-bottom: 1px solid red;
         }
       }
@@ -214,11 +234,14 @@
       }
 
       select {
-        width: 200px;
+        min-width: 200px;
+        width: 100%;
       }
 
-      input, textarea {
-        width: 200px;
+      input,
+      textarea {
+        min-width: 200px;
+        width: 100%;
         padding: 0;
         margin: 0;
         border: none;
@@ -235,7 +258,7 @@
       #id_name {
         font-size: 1.8em;
         font-weight: bold;
-        margin-bottom: .2em;
+        margin-bottom: 0.2em;
       }
 
       #id_position {
@@ -244,9 +267,11 @@
         text-align: center;
       }
 
-      #id_position, #id_email, #id_description {
-        font-size: .9em;
-        margin-bottom: .1em;
+      #id_position,
+      #id_email,
+      #id_description {
+        font-size: 0.9em;
+        margin-bottom: 0.1em;
       }
 
       #id_description {
@@ -258,19 +283,25 @@
   }
 }
 
-
 @media screen and (max-width: 768px) {
   .members {
     .list {
+      width: 100%;
+      flex-direction: column;
+
       .item {
         width: 100%;
-        padding: 2em 0;
+        margin: 2em 0;
 
         .content {
-          width: 200px;
+          width: 100%;
           margin: 0 auto;
         }
       }
+    }
+
+    form {
+      width: 100%;
     }
   }
 }
