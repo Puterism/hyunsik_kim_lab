@@ -198,7 +198,7 @@ CKEDITOR_CONFIGS = {
                 'TextColor', '-',
                 'JustifyLeft', 'JustifyCenter', 'JustifyRight',
                 'Table', 'Image', 'Link', 'Unlink', 'Anchor', '-',
-                'NumberedList', 'BulletedList', '-',
+                'NumberedList', 'BulletedList', '-', 'Subscript', 'Superscript', '-',
             ]
         ],
         'extraPlugins': ','.join(
