@@ -24,10 +24,16 @@
                     <a href="{% url 'publications_add' %}">
                         <button>추가</button>
                     </a>
+                    <a href="{% url 'publications_description_edit' %}">
+                        <button>상단 설명 수정</button>
+                    </a>
                     <a href="{% url 'publications_edit_order' %}">
                         <button>순서 변경</button>
                     </a>
                 </div>
+            {% endif %}
+            {% if description %}
+                <p>{{ description.description | safe | linebreaksbr }}</p>
             {% endif %}
             {% if publications %}
                 <ol class="list" reversed>

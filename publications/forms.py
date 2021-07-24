@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Publication
+from .models import Description, Publication
 
 
 class PublicationForm(forms.ModelForm):
@@ -15,3 +15,11 @@ class PublicationForm(forms.ModelForm):
     class Meta:
         model = Publication
         fields = ('label', 'content', )
+
+class DescriptionForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(DescriptionForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = Description
+        fields = ('description', )

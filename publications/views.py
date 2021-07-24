@@ -4,15 +4,18 @@ from django.utils import timezone
 from django.http import JsonResponse
 import json
 
-from .models import Publication
-from .forms import PublicationForm
+from .models import Description, Publication
+from .forms import DescriptionForm, PublicationForm
 
 
 def publications(request):
-    publications_list = Publication.objects.filter(created_at__lte=timezone.now()).order_by('-order')
+    publications_list = Publication.objects.filter(
+        created_at__lte=timezone.now()).order_by('-order')
+    description = Description.objects.last()
 
     context = {
         'publications': publications_list,
+        'description': description,
     }
     return render(request, 'publications/index.html', context)
 
@@ -73,7 +76,8 @@ def publications_delete(request, id):
 
 @login_required
 def publications_edit_order(request):
-    publications_list = Publication.objects.filter(created_at__lte=timezone.now()).order_by('-order')
+    publications_list = Publication.objects.filter(
+        created_at__lte=timezone.now()).order_by('-order')
 
     if request.method == 'POST':
         try:
@@ -100,3 +104,28 @@ def publications_edit_order(request):
         }
 
         return render(request, 'publications/edit_order.html', context)
+
+
+@login_required
+def publications_description_edit(request):
+    description = Description.objects.last()
+
+    if request.method == 'POST':
+        form = DescriptionForm(request.POST, instance=description)
+
+        if form.is_valid():
+            form.save()
+            return redirect('publications')
+        else:
+            context = {
+                'message': '에러가 발생했습니다'
+            }
+            return render(request, 'publications/description_edit.html', context)
+
+    else:
+        form = DescriptionForm(instance=description)
+        context = {
+            'description': description,
+            'form': form,
+        }
+        return render(request, 'publications/description_edit.html', context)
